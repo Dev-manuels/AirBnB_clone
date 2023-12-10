@@ -4,6 +4,7 @@ Module containing the BaseModel class
 """
 from datetime import datetime
 import uuid
+from models import storage
 
 
 class BaseModel():
@@ -24,6 +25,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new(self)
 
     def __str__(self):
         """
@@ -40,6 +42,7 @@ class BaseModel():
         updates the updated_at instance variable
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         tmp_dict = dict(self.__dict__)
