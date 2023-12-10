@@ -45,6 +45,12 @@ class BaseModel():
         storage.save()
 
     def to_dict(self):
+        """
+        to_dict - created a dictionary of all object attributes
+
+        Returns:
+            dict: dict to be used for serialization
+        """
         tmp_dict = dict(self.__dict__)
         tmp_dict.update({"__class__": self.__class__.__name__})
         tmp_dict.update({"created_at": self.created_at.isoformat()})

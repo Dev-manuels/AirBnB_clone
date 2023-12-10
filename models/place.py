@@ -6,6 +6,12 @@ from base_model import BaseModel
 
 
 class Place(BaseModel):
+    """
+    Place - Place class
+
+    Args:
+        BaseModel (SuperClass): parent class of class Place
+    """
     city_id = ""
     user_id = ""
     name = ""
