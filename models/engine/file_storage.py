@@ -8,10 +8,14 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
-from models.review import Reviews
+from models.review import Review
 from models.state import State
 from models.user import User
 
+
+classes = {"Amenity":Amenity, "BaseModel":BaseModel, "City":City,
+           "Place":Place, "Review":Review, "State":State,
+           "User":User}
 
 class FileStorage():
     __file_path = "file.json"
@@ -50,9 +54,6 @@ class FileStorage():
         """
         reload -  reloads all objects stored in a json file(__file_path)
         """
-        classes = {"Amenity":Amenity, "BaseModel":BaseModel, "City":City,
-                   "Place":Place, "Reviews":Reviews, "State":State,
-                   "User":User}
         tmp_dict = dict()
         try:
             if os.stat(self.__file_path).st_size > 0:
