@@ -4,6 +4,13 @@ Module containing class FileStorage
 """
 import json
 import os
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Reviews
+from models.state import State
+from models.user import User
 
 
 class FileStorage():
@@ -15,7 +22,7 @@ class FileStorage():
         all - returns all objects stored in self__objects
 
         Returns:
-            dict: cached dictionary of all created objects 
+            dict: cached dictionary of all created objects
         """
         return (self.__objects)
 
@@ -37,19 +44,24 @@ class FileStorage():
         for key, value in self.__objects.items():
             new_dict[key] = value.to_dict()
         with open(self.__file_path, mode="w", encoding="utf-8") as file:
-            file.write(json.dumps(new_dict))
+            json.dump(new_dict, file)
 
     def reload(self):
         """
         reload -  reloads all objects stored in a json file(__file_path)
         """
-        from models.base_model import BaseModel
+        classes = {"Amenity":Amenity, "BaseModel":BaseModel, "City":City,
+                   "Place":Place, "Reviews":Reviews, "State":State,
+                   "User":User}
         tmp_dict = dict()
         try:
             if os.stat(self.__file_path).st_size > 0:
                 with open(self.__file_path, encoding="utf-8") as file:
                     tmp_dict = json.load(file)
                 for key, value in tmp_dict.items():
-                    self.__objects[key] = BaseModel(value)
+                    cls = ""
+                    cls = key.split(".")
+                    cls = cls[0]
+                    self.__objects[key] = classes[cls](**value)
         except FileNotFoundError:
             pass
