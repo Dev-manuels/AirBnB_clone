@@ -13,9 +13,10 @@ from models.state import State
 from models.user import User
 
 
-classes = {"Amenity":Amenity, "BaseModel":BaseModel, "City":City,
-           "Place":Place, "Review":Review, "State":State,
-           "User":User}
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State,
+           "User": User}
+
 
 class FileStorage():
     __file_path = "file.json"
@@ -42,7 +43,8 @@ class FileStorage():
 
     def save(self):
         """
-        save - saved all cached objects stored in __objects to a json file(__file_path)
+        save - saved all cached objects stored
+        in __objects to a json file(__file_path)
         """
         new_dict = dict()
         for key, value in self.__objects.items():

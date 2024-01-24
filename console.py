@@ -13,9 +13,10 @@ from models.state import State
 from models.user import User
 
 
-classes = {"Amenity":Amenity, "BaseModel":BaseModel, "City":City,
-                   "Place":Place, "Reviews":Review, "State":State,
-                   "User":User}
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Reviews": Review, "State": State,
+           "User": User}
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -50,6 +51,12 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
+    def emptyline(self):
+        """
+        emptyline - handle empty lines
+        """
+        pass
+
     def do_create(self, line):
         """
         do_create - creates new object
@@ -77,7 +84,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        do_show - Shows an object str representation based on id and object name
+        do_show - Shows an object str representation
+        based on id and object name
 
         Args:
             line (str): user input containing object class and object id
@@ -153,7 +161,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             tmp_list = list()
             for key, value in models.storage.all().items():
-                    tmp_list.append(str(value.to_dict()))
+                tmp_list.append(str(value.to_dict()))
             print(tmp_list)
 
     def do_update(self, line):
@@ -161,7 +169,8 @@ class HBNBCommand(cmd.Cmd):
         do_update - updates an object new/existing attribute
 
         Args:
-            line (string): user input containing object class, id, attribute and value
+            line (string): user input containing
+            object class, id, attribute and value
         """
         if len(line.strip()) > 0:
             tmp = line.strip().split(" ")
